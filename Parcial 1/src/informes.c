@@ -262,7 +262,7 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 		printf("\n""El rubro con más avisos es 'Sociales' (total %d).", contadorSociales);
 		retorno = 0;
 	}
-	/*
+
 		else if((contadorFunebres==contadorInmuebles) && contadorFunebres >contadorSociales)
 		{
 			printf("\nLos rubros con más avisos son 'Funebres' e 'Inmuebles' (total %d).", contadorFunebres);
@@ -277,7 +277,12 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 		{
 			printf("\nLos rubros con más avisos son 'Inmuebles' y 'Sociales' (total %d).", contadorFunebres);
 			retorno = 0;
-		}*/
+		}
+		else if((contadorInmuebles==contadorSociales) && (contadorSociales==contadorFunebres))
+		{
+			printf("\nLos tres rubros tienen el mismo número de avisos (total %d).", contadorInmuebles);
+			retorno = 0;
+		}
 	return retorno;
 }
 
