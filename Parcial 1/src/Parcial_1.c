@@ -33,8 +33,8 @@ int main(void)
 	if(!cli_initList(clienteList, LEN_CLI)&&
 		!pub_initList(publicacionList, LEN_PUB ))
 	{
-		cli_cargaAutomatica(clienteList);
-		pub_cargaAutomatica(publicacionList);
+		//cli_cargaAutomatica(clienteList);
+		//pub_cargaAutomatica(publicacionList);
 		do{
 			if(!utn_getNumeroInt(&respuesta,
 								"\n\nMENÚ PRINCIPAL:\n"
@@ -135,7 +135,6 @@ int main(void)
 						}
 						break;
 					case 8://SACAR INFORMES
-
 						do
 						{
 
@@ -170,7 +169,7 @@ int main(void)
 								break;
 
 							case 3:
-								if(inf_rubroConMasAvisos(publicacionList, LEN_PUB, 1))
+								if(inf_rubroConMasAvisos(publicacionList, LEN_PUB))
 								{
 									printf("\nVolviendo al menú principal...");
 								}
@@ -187,7 +186,6 @@ int main(void)
 			}
 		}while(respuesta!=9);
 	}
-
 	printf("¡Hasta la próxima!");
 	return EXIT_SUCCESS;
 }

@@ -216,55 +216,72 @@ int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *p
  * param bandera para saber que ya hay algo cargado en el sistema.
  * return -1 si todo sale ok. 0 si ha habido un problema.
  */
-int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen, int banderaPrimeraCarga)
+int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 {
 	int retorno = -1;
 	int contadorFunebres = 0;//1
 	int contadorInmuebles = 0;//2
 	int contadorSociales = 0;//3
 
-	if(publicacionList != NULL && publicacionLen>1)
+	if(pub_isEmpty(publicacionList, publicacionLen)==1)
 	{
-		if(banderaPrimeraCarga == 0)
+		printf("\nNO HAY PUBLICIDADES CARGADAS.\n");
+	}
+	else
+	{
+		for(int i=0;i< publicacionLen ;i++)
 		{
-			printf("\nNO HAY PUBLICIDADES CARGADAS.\n");
-		}
-		else
-		{
-			for(int i=0;i< publicacionLen ;i++)
+
+			switch(publicacionList[i].rubro)
 			{
-				switch(publicacionList[i].rubro)
-				{
-					case 1:
-						contadorFunebres++;
-						break;
-					case 2:
-						contadorInmuebles++;
-						break;
-					case 3:
-						contadorSociales++;
-						break;
-				}
+				case 1:
+					contadorFunebres++;
+					break;
+				case 2:
+					contadorInmuebles++;
+					break;
+				case 3:
+					contadorSociales++;
+					break;
 			}
 		}
-		if(contadorFunebres>contadorInmuebles && contadorFunebres >contadorSociales)
-		{
-			printf("\nEl rubro con más avisos es 'Funebres' (total %d).", contadorFunebres);
-			retorno = 0;
-		}
-		else if(contadorInmuebles>contadorFunebres && contadorInmuebles>contadorSociales)
-		{
-			printf("\nEl rubro con más avisos es 'Inmuebles' (total %d).", contadorInmuebles);
-			retorno = 0;
-		}
-		else if(contadorSociales>contadorFunebres && contadorSociales>contadorInmuebles)
-		{
-			printf("\n""El rubro con más avisos es 'Sociales' (total %d).", contadorInmuebles);
-			retorno = 0;
-		}
 	}
+
+	if(contadorFunebres>contadorInmuebles && contadorFunebres >contadorSociales)
+	{
+		printf("\nEl rubro con más avisos es 'Funebres' (total %d).", contadorFunebres);
+		retorno = 0;
+	}
+	else if(contadorInmuebles>contadorFunebres && contadorInmuebles>contadorSociales)
+	{
+		printf("\nEl rubro con más avisos es 'Inmuebles' (total %d).", contadorInmuebles);
+		retorno = 0;
+	}
+	else if(contadorSociales>contadorFunebres && contadorSociales>contadorInmuebles)
+	{
+		printf("\n""El rubro con más avisos es 'Sociales' (total %d).", contadorSociales);
+		retorno = 0;
+	}
+	/*
+		else if((contadorFunebres==contadorInmuebles) && contadorFunebres >contadorSociales)
+		{
+			printf("\nLos rubros con más avisos son 'Funebres' e 'Inmuebles' (total %d).", contadorFunebres);
+			retorno = 0;
+		}
+		else if((contadorFunebres==contadorSociales) && contadorFunebres >contadorInmuebles)
+		{
+			printf("\nLos rubros con más avisos son 'Funebres' y 'Sociales' (total %d).", contadorFunebres);
+			retorno = 0;
+		}
+		else if((contadorInmuebles==contadorSociales) && contadorInmuebles >contadorFunebres)
+		{
+			printf("\nLos rubros con más avisos son 'Inmuebles' y 'Sociales' (total %d).", contadorFunebres);
+			retorno = 0;
+		}*/
 	return retorno;
 }
+
+
 
 
 

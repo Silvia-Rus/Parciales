@@ -571,7 +571,7 @@ int pub_totalPausadas(Publicacion * listPublicacion, int lenPublicacion, int *pT
  * \return los datos cargados.
  */
 
-void pub_cargaAutomatica(Publicacion *list)
+/*void pub_cargaAutomatica(Publicacion *list)
 {
 	    list[0].id = (pub_nuevoId);
 	    list[0].rubro = 1;
@@ -588,12 +588,13 @@ strncpy(list[1].textoAviso,"PUBLICACION2",LEN_NOMBRE);
 	    list[1].idCliente = 1;
 
 	    list[2].id = (pub_nuevoId);
-	    list[2].rubro = 3;
+	    list[2].rubro = 1;
 strncpy(list[2].textoAviso,"PUBLICACION3",LEN_NOMBRE);
 		list[2].estado = 1;
-	    list[2].isEmpty = 0;
+	    list[2].isEmpty = 1;
 	    list[2].idCliente = 2;
 }
+*/
 
 
 

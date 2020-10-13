@@ -385,7 +385,7 @@ int cli_bajaById(Cliente *list, int len, int idCliente)
  * \param puntero a la lista de publicaciones
  * \return los datos cargados.
  */
-void cli_cargaAutomatica(Cliente *list)
+/*void cli_cargaAutomatica(Cliente *list)
 {
 	    list[0].id =99;
 strncpy(list[0].nombre,"Silvia",LEN_NOMBRE);
@@ -399,6 +399,7 @@ strncpy(list[1].apellido,"Rus",LEN_NOMBRE);
 strncpy(list[1].cuit,"5555",11);
 	    list[1].isEmpty = 0;
 }
+ */
 
 
 
