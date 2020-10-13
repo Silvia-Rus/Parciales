@@ -216,7 +216,6 @@ int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *p
  * param longitud del array de publicaciones.
  * return -1 si todo sale ok. 0 si ha habido un problema.
  */
-
 int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen, int banderaPrimeraCarga)
 {
 	int retorno = -1;
@@ -233,17 +232,17 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen, int 
 		for(int i=0;i< publicacionLen ;i++)
 		{
 
-			if(publicacionList[i].rubro==1)
+			switch(publicacionList[i].rubro)
 			{
-				contadorFunebres++;
-			}
-			else if(publicacionList[i].rubro==2)
-			{
-				contadorInmuebles++;
-			}
-			else if(publicacionList[i].rubro==3)
-			{
-				contadorSociales++;
+				case 1:
+					contadorFunebres++;
+					break;
+				case 2:
+					contadorInmuebles++;
+					break;
+				case 3:
+					contadorSociales++;
+					break;
 			}
 		}
 	}
@@ -263,7 +262,6 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen, int 
 		printf("\n""El rubro con más avisos es 'Sociales' (total %d).", contadorInmuebles);
 		retorno = 0;
 	}
-
 	return retorno;
 }
 
