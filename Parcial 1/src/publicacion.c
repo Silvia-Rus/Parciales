@@ -532,40 +532,6 @@ int pub_totalPausadas(Publicacion * listPublicacion, int lenPublicacion, int *pT
 	return retorno;
 }
 /*
- * \brief calcula cuál es el cliente con más avisos (activos o no) en la base de datos.
- * \param puntero a la lista de clientes.
- * \param longitud de la lista de clientes.
- * \param puntero a la lista de publicaciones
- * \param longitud de la lista de la publicaciones.
- * * \return -1 si algo fue mal, 0 si fue todo bien.
- */
-//PROBARLA
-/*int pub_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *publicacionList, int publicacionLen, int *pIdClienteConMasAvisos)
-{
-	int retorno=-1;
-	int totalPorCliente;
-	int totalMasAlto;
-	Cliente bufferCliente;
-	int bufferClienteConMasAvisos;
-	if(clienteList!=NULL && clienteLen>0 && publicacionList!=NULL && publicacionLen>0)
-	{
-		for(int i=0;i<clienteLen;i++)
-		{
-			pub_totalPubByIdCliente(publicacionList,publicacionLen, clienteList[i].id, &totalPorCliente);
-			if(i==0 || totalPorCliente>totalMasAlto)
-			{
-				totalMasAlto = totalPorCliente;
-				bufferCliente = clienteList[i];
-				bufferClienteConMasAvisos=bufferCliente.id;
-				retorno=0;
-			}
-		}
-	}
-	*pIdClienteConMasAvisos=bufferClienteConMasAvisos;
-	return retorno;
-}
-*/
-/*
  * \brief carga datos de manera automática para debuguear.
  * \param puntero a la lista de publicaciones
  * \return los datos cargados.
@@ -595,8 +561,6 @@ strncpy(list[2].textoAviso,"PUBLICACION3",LEN_NOMBRE);
 	    list[2].idCliente = 2;
 }
 */
-
-
 
 
 
