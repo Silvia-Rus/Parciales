@@ -14,12 +14,10 @@
 #include "informes.h"
 #include "getData.h"
 
-
 #define LEN_NOMBRE 30
 #define LEN_STRUCT 1000
 #define LEN_CLIENTE 100
 #define INTENTOS 3
-
 
 static int pub_nuevoId(void);
 

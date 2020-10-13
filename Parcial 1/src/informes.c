@@ -78,7 +78,6 @@ int inf_printPublicacionbyIdCliente(Publicacion *list, int len ,Cliente *listCli
 {
 	int retorno = -1;
 
-
 		if (list != NULL && len > 0 && pub_isEmpty(list, len)==0)
 		{
 			printf("\nPUBLICACIONES DEL CLIENTE N°: %d \n",idCliente);

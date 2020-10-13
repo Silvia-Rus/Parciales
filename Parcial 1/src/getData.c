@@ -161,7 +161,7 @@ static int esCuit(char *cadena)
 	}
 	return retorno;
 }
-/**
+/*
  * \brief convierte la cadena recibida en un número entero con la función atoi.
  * \param puntero con el string validado.
  * \return 0 si ha salido ok. -1 si no.

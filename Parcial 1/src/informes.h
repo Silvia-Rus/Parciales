@@ -11,7 +11,6 @@
 #include "publicacion.h"
 
 int inf_printClientebyIdPublicacion(Publicacion *list, int len, Cliente *listCliente, int lenCliente, int idPub);
-
 int inf_printPublicacionbyIdCliente(Publicacion *list, int len ,Cliente *listCliente,int lenCliente, int idCliente);
 int inf_printSumaAvisosActivosByCliente(Publicacion * listPublicacion, int lenPublicacion, Cliente* listClient, int lenClient);
 int inf_printTotalPausadas(Publicacion * listPublicacion, int lenPublicacion);

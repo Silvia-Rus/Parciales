@@ -234,12 +234,6 @@ int cli_altaRegistro(Cliente *list,int len)
 									"\nApellido del cliente: ",
 									"\nError. Introduzca solo letras y espacios.",
 									INTENTOS) &&
-			/*!utn_getCadena(buffer.cuit,
-							CUIT_SIZE,
-							"CUIT del cliente::",
-							"\nError. Introduzca un CUIT válido.",
-							INTENTOS))*/
-
 			!utn_getCuit(buffer.cuit,
 						"\nCUIT: ",
 						"\nERROR.Ingrese un CUIT válido: ",
@@ -333,11 +327,6 @@ int cli_modify(Cliente *list, int len)
 										"\nERROR.Ingrese un CUIT válido: ",
 												INTENTOS,
 												LEN_CUIT))
-						/*if(!utn_getCadena(buffer.cuit,
-								LEN_NOMBRE,
-								"\nIngrese el nuevo CUIT: ",
-								"\nERROR.Ingrese un CUIT válido: ",
-								INTENTOS))*/
 						{
 								printf("CUIT actualizado a %s.\n", buffer.nombre);
 								retorno=0;
