@@ -16,10 +16,8 @@
 
 #define LEN_NOMBRE 30
 #define INTENTOS 3
-#define LEN_CLIENTE 10
+#define LEN_CLIENTE 100
 #define LEN_CUIT 14
-
-
 
 static int cli_nuevoId(void);
 
@@ -389,13 +387,13 @@ int cli_bajaById(Cliente *list, int len, int idCliente)
  */
 void cli_cargaAutomatica(Cliente *list)
 {
-	    list[0].id = 1;
+	    list[0].id =99;
 strncpy(list[0].nombre,"Silvia",LEN_NOMBRE);
 strncpy(list[0].apellido,"Rus Mata",LEN_NOMBRE);
 strncpy(list[0].cuit,"1234",11);
 	    list[0].isEmpty = 0;
 
-	    list[1].id = 2;
+	    list[1].id = 999;
 strncpy(list[1].nombre,"Sara",LEN_NOMBRE);
 strncpy(list[1].apellido,"Rus",LEN_NOMBRE);
 strncpy(list[1].cuit,"5555",11);

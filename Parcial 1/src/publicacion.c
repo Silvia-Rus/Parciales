@@ -16,8 +16,8 @@
 
 
 #define LEN_NOMBRE 30
-#define LEN_STRUCT 10
-#define LEN_CLIENTE 10
+#define LEN_STRUCT 1000
+#define LEN_CLIENTE 100
 #define INTENTOS 3
 
 
@@ -573,21 +573,21 @@ int pub_totalPausadas(Publicacion * listPublicacion, int lenPublicacion, int *pT
 
 void pub_cargaAutomatica(Publicacion *list)
 {
-	    list[0].id = 1;
+	    list[0].id = (pub_nuevoId);
 	    list[0].rubro = 1;
 strncpy(list[0].textoAviso,"PUBLICACION",LEN_NOMBRE);
 		list[0].estado = 1;
 	    list[0].isEmpty = 0;
 	    list[0].idCliente = 1;
 
-	    list[1].id = 2;
+	    list[1].id = (pub_nuevoId);
 	    list[1].rubro = 1;
 strncpy(list[1].textoAviso,"PUBLICACION2",LEN_NOMBRE);
 		list[1].estado = 1;
 	    list[1].isEmpty = 0;
 	    list[1].idCliente = 1;
 
-	    list[2].id = 3;
+	    list[2].id = (pub_nuevoId);
 	    list[2].rubro = 3;
 strncpy(list[2].textoAviso,"PUBLICACION3",LEN_NOMBRE);
 		list[2].estado = 1;

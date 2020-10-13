@@ -16,10 +16,6 @@
 
 #define ARRAY_SIZE 4096
 
-
-
-
-
 static int myGets(char* cadena, int len);
 static int esNumericaInt(char* cadena, int len);
 static int esNumericaFloat(char* cadena, int len);
@@ -28,8 +24,6 @@ static int getInt(int *pResultado);
 static int getFloat(float *pResultado);
 static int getLetrasYEspacios(char *pResultado, int len);
 static int esCuit(char cadena[]);
-
-
 /*
  * \brief valida que la cadena recibida no excede la memoria del array y hace obligatoria la entrada de datos.
  * \param puntero con el string validado.

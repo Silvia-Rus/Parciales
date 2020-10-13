@@ -14,9 +14,8 @@
 #include "informes.h"
 #include "getData.h"
 
-
-#define LEN_CLI 10
-#define LEN_PUB 10
+#define LEN_CLI 100
+#define LEN_PUB 1000
 #define INTENTOS 3
 #define CUIT_SIZE 14
 
