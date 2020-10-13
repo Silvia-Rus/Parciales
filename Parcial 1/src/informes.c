@@ -113,7 +113,7 @@ int inf_printSumaAvisosActivosByCliente(Publicacion * listPublicacion, int lenPu
 {
 	int retorno=-1;
 	int contadorActivas = 0;
-		if(listPublicacion != NULL && lenPublicacion > 0 && listClient != NULL && lenClient > 0)
+		if(listPublicacion != NULL && lenPublicacion > 0 && listClient != NULL && lenClient > 0 && cli_isEmpty(listClient, lenClient)==0)
 		{	printf("ID   "
 				"Nombre         "
 				"Apellido       "
@@ -134,10 +134,19 @@ int inf_printSumaAvisosActivosByCliente(Publicacion * listPublicacion, int lenPu
 							listClient[i].apellido,
 							listClient[i].cuit,
 							contadorActivas);
+							retorno = 0;
 				}
 			}
-			retorno = 0;
+
 		}
+		else
+		{
+			if(cli_isEmpty(listClient, lenClient)==1)
+			{
+				printf("No hay clientes grabados en la base de datos.");
+			}
+		}
+
 		return retorno;
 }
 /* brief imprime el total de publicaciones pausadas que hay en el sistema.
@@ -161,30 +170,13 @@ int inf_printTotalPausadas(Publicacion * listPublicacion, int lenPublicacion)
 
 		return retorno;
 }
-//PROBARLA MAÑANA
-/* int inf_printClienteConMasAvisos(Publicacion * publicacionList, int publicacionLen, Cliente *clienteList, int clienteLen)
-{
-	int retorno=-1;
-	int idClienteConMasAvisos;
-	int index;
-		if(clienteList!=NULL && clienteLen>0 && publicacionList!=NULL && publicacionLen>0)
-		{	printf("aquí sí llega");
-			if(!pub_clienteConMasAvisos(clienteList, clienteLen, publicacionList,publicacionLen, &idClienteConMasAvisos))
-			{
-				//cli_findById(Cliente* list,int len, int id)
-				printf("y aquí????");
-				cli_findById(clienteList, clienteLen, idClienteConMasAvisos)=index;
-				printf("\nEl cliente con mas avisos es: %s %s, (CUIT: %s)", clienteList[index].nombre, clienteList[index].apellido, clienteList[index].cuit);
-				retorno = 0;
-			}
-
-		}
-		return retorno;
-}
-
-*/
-
-//VER MAÑANA QUÉ ANDA MEJOR
+/* brief imprime el cliente con más publicaciones.
+ * param array de clientes.
+ * param longitud del array de clientes.
+ * param array de publicaciones.
+ * param longitud del array de publicaciones.
+ * return -1 si todo sale ok. 0 si ha habido un problema.
+ */
 int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *publicacionList, int publicacionLen)
 {
 	int retornar=-1;
@@ -192,7 +184,7 @@ int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *p
 	int maxCounter;
 	int index;
 	Cliente bufferMax;
-	if(clienteList!=NULL && clienteLen>0 && publicacionList!=NULL && publicacionLen>0)
+	if(clienteList!=NULL && clienteLen>0 && publicacionList!=NULL && publicacionLen>0 && cli_isEmpty(clienteList, clienteLen)==0)
 	{
 		for(int i=0;i<clienteLen;i++)
 		{
@@ -207,13 +199,19 @@ int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *p
 		printf("\nEl cliente con mas avisos es: %s %s, CUIT: %s", clienteList[index].nombre, clienteList[index].apellido, clienteList[index].cuit);
 		retornar = 0;
 	}
+	else
+	{
+		if(cli_isEmpty(clienteList, clienteLen)==1)
+		{
+			printf("No hay clientes grabados en la base de datos.");
+		}
+	}
 	return retornar;
 }
 
 /* brief imprime el rubro con más avisos en el sistema
  * param array de publicaciones.
  * param longitud del array de publicaciones.
- * param bandera para saber que ya hay algo cargado en el sistema.
  * return -1 si todo sale ok. 0 si ha habido un problema.
  */
 int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
@@ -229,9 +227,11 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 	}
 	else
 	{
-		for(int i=0;i< publicacionLen ;i++)
+		for(int i=0;i< publicacionLen;i++)
 		{
 
+			if(publicacionList[i].isEmpty == 0)
+			{
 			switch(publicacionList[i].rubro)
 			{
 				case 1:
@@ -244,9 +244,9 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 					contadorSociales++;
 					break;
 			}
+			}
 		}
 	}
-
 	if(contadorFunebres>contadorInmuebles && contadorFunebres >contadorSociales)
 	{
 		printf("\nEl rubro con más avisos es 'Funebres' (total %d).", contadorFunebres);
