@@ -253,9 +253,9 @@ int cli_altaRegistro(Cliente *list,int len)
 			list[i]= buffer;
 			retorno=0;
 			printf("Se ha grabado con éxito:\n"
-					"\nNombre: %s.\n"
-					"\nApellido; %s.\n"
-					"\nCUIT: %s.\n\n",
+					"\nNombre: %s."
+					"\nApellido: %s."
+					"\nCUIT: %s.\n",
 					list[i].nombre,
 					list[i].apellido,
 					list[i].cuit);

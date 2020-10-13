@@ -400,7 +400,19 @@ int pub_pausarActivarPublicacion(Publicacion *list, int len, Cliente *listClient
 					}
 				}while(confirmacion!=0);
 			}
-		 }else{printf("No existe ningúna publicación con ese ID en la base de datos.\n\n");}
+		 }
+		 else
+		 {
+			 if(idPublicacion==0)
+			 {
+				printf("Volviendo a menú principal...");
+			 }
+			 else
+			 {
+				 printf("No existe ningúna publicación con ese ID en la base de datos.\n\n");
+			 }
+
+		 }
 	}
 	return retorno;
 }
