@@ -280,11 +280,11 @@ int pub_altaRegistro(Publicacion *list,int len, Cliente *clienteList, int client
 				if(!pub_indiceVacio(list, LEN_STRUCT,&i) &&
 					i >= 0  && list[i].isEmpty==1 &&
 					!utn_getNumeroInt(&buffer.rubro,
-										"\nRubro:",
-										"\nError. Ingrese un número de rubro"
+										"\nRubro:"
 										"\n-->1-Funebres"
 										"\n-->2-Inmuebles"
-										"\n-->3-Sociales",
+										"\n-->3-Sociales\n",
+										"\nError. Ingrese un número de rubro",
 										1,
 										3,
 										INTENTOS) &&

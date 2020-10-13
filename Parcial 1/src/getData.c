@@ -390,7 +390,6 @@ int utn_getLetrasYEspacios(char* pResultado,
  * \param longitud del CUIT.
  * \return return 0 si ha salido ok. -1 si no (punteros nulos, mínimo mayor al máximo, reintentos menor a 0)
  */
-
 int utn_getCuit(char* pResultado, char* mensaje, char* mensajeError, int reintentos, int len)
 {
 	int retorno = -1;
