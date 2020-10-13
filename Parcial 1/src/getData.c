@@ -27,7 +27,7 @@ static int esLetrasYEspacios(char* cadena, int len);
 static int getInt(int *pResultado);
 static int getFloat(float *pResultado);
 static int getLetrasYEspacios(char *pResultado, int len);
-static int isCuit(char cadena[]);
+static int esCuit(char cadena[]);
 
 
 /*
@@ -136,6 +136,33 @@ static int esLetrasYEspacios(char* cadena, int len)
 		{
 			retorno = 0;
 			break;
+		}
+	}
+	return retorno;
+}
+/*
+ * \brief valida que la cadena recibida es un número CUIT.
+ * \param puntero con el string validado.
+ * \return 1 (verdadero) si es un número entero. 0 (falso) si no lo es.
+ */
+static int esCuit(char *cadena)
+{
+	int retorno;
+	int contadorLugares=0;
+	if(cadena != NULL && strlen(cadena) > 0 && cadena[2] == '-' && cadena[11] == '-' && cadena[12] != '\0')
+	{
+		retorno = 1;
+		for(int i = 0;cadena[i] != '\0'; i++)
+		{
+			if(cadena[i] == '-')
+			{
+				contadorLugares++;
+			}
+			if(contadorLugares>2 || ((cadena[i] < '0' || cadena[i] > '9') && cadena[i] != '-'))
+			{
+				retorno = 0;
+				break;
+			}
 		}
 	}
 	return retorno;
@@ -354,35 +381,20 @@ int utn_getLetrasYEspacios(char* pResultado,
 	}
 	return retorno;
 }
+/*
+ * \brief solicita un CUIT por pantalla y lo valida.
+ * \param puntero con el CUIT.
+ * \param mensaje para solicitar el CUIT..
+ * \param mensaje de error si no cumple las condiciones preestablecidas.
+ * \param cantidad de reintentos para introducir un valor válido.
+ * \param longitud del CUIT.
+ * \return return 0 si ha salido ok. -1 si no (punteros nulos, mínimo mayor al máximo, reintentos menor a 0)
+ */
 
-static int isCuit(char *cadena)
-{
-	int retorno;
-	int contadorLugares=0;
-	if(cadena != NULL && strlen(cadena) > 0 && cadena[2] == '-' && cadena[11] == '-' && cadena[12] != '\0')
-	{
-		retorno = 1;
-		for(int i = 0;cadena[i] != '\0'; i++)
-		{
-			if(cadena[i] == '-')
-			{
-				contadorLugares++;
-			}
-			if(contadorLugares>2 || ((cadena[i] < '0' || cadena[i] > '9') && cadena[i] != '-'))
-			{
-				retorno = 0;
-				break;
-			}
-		}
-	}
-	return retorno;
-}
 int utn_getCuit(char* pResultado, char* mensaje, char* mensajeError, int reintentos, int len)
 {
 	int retorno = -1;
 	char bufferString[ARRAY_SIZE];
-
-	//(myGets(bufferString, ARRAY_SIZE) == 0 && isCuit(bufferString) == 1 && strnlen(bufferString, sizeof(bufferString)) < limit)
 
 		if(mensaje != NULL && mensajeError != NULL && pResultado != NULL && reintentos >= 0)
 		{
@@ -390,7 +402,7 @@ int utn_getCuit(char* pResultado, char* mensaje, char* mensajeError, int reinten
 			{
 				printf("\n%s", mensaje);
 				if(!myGets(bufferString, ARRAY_SIZE) &&
-						isCuit(bufferString) == 1 &&
+						esCuit(bufferString) == 1 &&
 						strnlen(bufferString, sizeof(bufferString)) < len)
 				{
 					retorno = 0;

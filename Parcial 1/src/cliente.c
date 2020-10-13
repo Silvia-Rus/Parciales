@@ -17,7 +17,8 @@
 #define LEN_NOMBRE 30
 #define INTENTOS 3
 #define LEN_CLIENTE 10
-#define CUIT_SIZE 12
+#define LEN_CUIT 14
+
 
 
 static int cli_nuevoId(void);
@@ -227,32 +228,31 @@ int cli_altaRegistro(Cliente *list,int len)
 			list[i].isEmpty==1 &&
 			!utn_getLetrasYEspacios(buffer.nombre,
 									LEN_NOMBRE,
-									"Nombre del cliente:",
+									"\nNombre del cliente:",
 									"\nError. Introduzca únicamente letras y espacios.",
 									INTENTOS) &&
 			!utn_getLetrasYEspacios(buffer.apellido,
 									LEN_NOMBRE,
-									"Apellido del cliente: ",
+									"\nApellido del cliente: ",
 									"\nError. Introduzca solo letras y espacios.",
 									INTENTOS) &&
-			//conseguir GET_CUIT
-			!utn_getCadena(buffer.cuit,
+			/*!utn_getCadena(buffer.cuit,
 							CUIT_SIZE,
 							"CUIT del cliente::",
 							"\nError. Introduzca un CUIT válido.",
-							INTENTOS))
-	//int utn_getCuit(char* pResultado,int len, char* mensaje, char* mensajeError, int reintentos)
-			/*!utn_getCuit(buffer.cuit,
-						//CUIT_SIZE,
-						"Ingrese el nuevo CUIT: ",
+							INTENTOS))*/
+
+			!utn_getCuit(buffer.cuit,
+						"\nCUIT: ",
 						"\nERROR.Ingrese un CUIT válido: ",
-						INTENTOS))*/
+						INTENTOS,
+						LEN_CUIT))
 	{
 			buffer.id =cli_nuevoId();
 			buffer.isEmpty=0;
 			list[i]= buffer;
 			retorno=0;
-			printf("Se ha grabado con éxito:\n"
+			printf("\nSe ha grabado con éxito:"
 					"\nNombre: %s."
 					"\nApellido: %s."
 					"\nCUIT: %s.\n",
@@ -290,6 +290,7 @@ int cli_modify(Cliente *list, int len)
 			if(indiceAModificar!=-1)
 			{
 			buffer = list[indiceAModificar];
+			printf("Modificaciones para %s %s (CUIT: %s).\n", buffer.nombre, buffer.apellido, buffer.cuit);
 			do
 			{
 				if(!utn_getNumeroInt(&campoAModificar,
@@ -298,7 +299,7 @@ int cli_modify(Cliente *list, int len)
 									"1-Nombre. \n"
 									"2-Apellido. \n"
 									"3-CUIT. \n"
-									"\n4-Volver a menú principal.\n\n",
+									"4-Volver a menú principal.\n\n",
 									"\nIngrese una opcion valida: ",
 									1,
 									4,
@@ -329,17 +330,16 @@ int cli_modify(Cliente *list, int len)
 						}
 						break;
 					case 3:
-						//int utn_getCuit(char* pResultado,int len, char* mensaje, char* mensajeError, int reintentos)
-						/*if(!utn_getCuit(buffer.cuit,
-										//CUIT_SIZE,
-										"\nIngrese el nuevo CUIT: ",
+						if(!utn_getCuit(buffer.cuit,
+										"Ingrese el nuevo CUIT: ",
 										"\nERROR.Ingrese un CUIT válido: ",
-										INTENTOS))*/
-						if(!utn_getCadena(buffer.cuit,
+												INTENTOS,
+												LEN_CUIT))
+						/*if(!utn_getCadena(buffer.cuit,
 								LEN_NOMBRE,
 								"\nIngrese el nuevo CUIT: ",
 								"\nERROR.Ingrese un CUIT válido: ",
-								INTENTOS))
+								INTENTOS))*/
 						{
 								printf("CUIT actualizado a %s.\n", buffer.nombre);
 								retorno=0;

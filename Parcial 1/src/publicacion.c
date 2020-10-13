@@ -411,12 +411,10 @@ int pub_pausarActivarPublicacion(Publicacion *list, int len, Cliente *listClient
 			 {
 				 printf("No existe ningúna publicación con ese ID en la base de datos.\n\n");
 			 }
-
 		 }
 	}
 	return retorno;
 }
-
 /*
 * \brief se dan de baja todas las publicaciones de un cliente cuyo id entra por puntero.
 * \param puntero a la lista de publicaciones

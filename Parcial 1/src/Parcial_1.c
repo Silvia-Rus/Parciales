@@ -18,6 +18,7 @@
 #define LEN_CLI 10
 #define LEN_PUB 10
 #define INTENTOS 3
+#define CUIT_SIZE 14
 
 int main(void)
 {

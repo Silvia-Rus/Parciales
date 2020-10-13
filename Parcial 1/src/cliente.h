@@ -15,7 +15,7 @@ struct
 	int id;
 	char nombre[51];
 	char apellido[51];
-	char cuit [11];
+	char cuit [14];
 	int isEmpty;
 }typedef Cliente;
 

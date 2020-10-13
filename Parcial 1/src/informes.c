@@ -16,6 +16,7 @@
 #define LEN_CLIENTE 10
 #define LEN_PUBLICACION 10
 #define LEN_PUB 10
+#define CUIT_SIZE 14
 
 /* brief imprime el cliente asociado a una publicación cuyo Id entra por parámetro.
  * param array de publicaciones.
