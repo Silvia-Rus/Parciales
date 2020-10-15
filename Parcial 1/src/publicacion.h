@@ -28,11 +28,11 @@ int pub_printList(Publicacion* list, int len);
 int pub_pausarActivarPublicacion(Publicacion *list, int len, Cliente *listCliente, int lenCliente, int pausa);
 int pausarActivar (Publicacion *list, int len, int id, int pausa);
 int pub_bajaByIdCliente(Publicacion *list, int len, int idCliente);
-int pub_totalPubActivasByIdCliente(Publicacion * listPublicacion, int lenPublicacion, int idCliente, int *pTotalPubActivas);
+int pub_totalPubByIdCliente(Publicacion * listPublicacion, int lenPublicacion, int idCliente, int *pTotalPublicaciones, int *pTotalPausadas, int *pTotalActivas);
 int pub_totalPausadas(Publicacion * listPublicacion, int lenPublicacion, int *pTotalPubPausadas);
 int pub_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *publicacionList, int publicacionLen, int *pIdClienteConMasAvisos);
-
+int pub_totalPubActivasByIdCliente(Publicacion * listPublicacion, int lenPublicacion, int idCliente, int *pTotalPubActivas);
 void pub_cargaAutomatica(Publicacion *list);
-int pub_totalPubByIdCliente(Publicacion * listPublicacion, int lenPublicacion, int idCliente, int *pTotalPublicaciones);
+
 
 #endif /* PUBLICACION_H_ */

@@ -17,6 +17,6 @@ int inf_printTotalPausadas(Publicacion * listPublicacion, int lenPublicacion);
 int inf_printClienteConMasAvisos(Publicacion * publicacionList, int publicacionLen, Cliente *clienteList, int clienteLen);
 int info_clientWithMaxAdQty(Cliente *clienteList, int clienteLen, Publicacion *publicacionList, int publicacionLen);
 int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen);
-int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *publicacionList, int publicacionLen);
+int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *publicacionList, int publicacionLen, int tipoInforme);
 
 #endif /* INFORMES_H_ */

@@ -473,6 +473,7 @@ int pub_totalPubActivasByIdCliente(Publicacion * listPublicacion, int lenPublica
 {
 	int retorno= -1;
 	int contadorActivas = 0;
+
 	if(listPublicacion != NULL && lenPublicacion > 0 && idCliente> -1 && pTotalPubActivas != NULL)
 	{
 		for(int i = 0; i< lenPublicacion; i++)
@@ -495,10 +496,12 @@ int pub_totalPubActivasByIdCliente(Publicacion * listPublicacion, int lenPublica
 * \param puntero con el total de publicaciones del cliente.
 * \return -1 si algo fue mal, 0 si fue todo bien.
  */
-int pub_totalPubByIdCliente(Publicacion * listPublicacion, int lenPublicacion, int idCliente, int *pTotalPublicaciones)
+int pub_totalPubByIdCliente(Publicacion * listPublicacion, int lenPublicacion, int idCliente, int *pTotalPublicaciones, int *pTotalPausadas, int *pTotalActivas)
 {
 	int retorno= -1;
 	int contadorPublicaciones = 0;
+	int contadorPubPausadas = 0;
+	int contadorPubActivas = 0;
 	if(listPublicacion != NULL && lenPublicacion > 0 && idCliente> -1 && pTotalPublicaciones != NULL)
 	{
 		for(int i = 0; i< lenPublicacion; i++)
@@ -506,9 +509,24 @@ int pub_totalPubByIdCliente(Publicacion * listPublicacion, int lenPublicacion, i
 			if(listPublicacion[i].isEmpty == 0 && listPublicacion[i].idCliente == idCliente)
 			{
 				contadorPublicaciones++;
+				if(listPublicacion[i].estado==0)
+				{
+					contadorPubPausadas++;
+				}
+				else
+				{
+					if(listPublicacion[i].estado==1)
+					{
+						contadorPubActivas++;
+					}
+
+				}
+
 			}
 		}
 		*pTotalPublicaciones = contadorPublicaciones;
+		*pTotalPausadas = contadorPubPausadas;
+		*pTotalActivas = contadorPubActivas;
 		retorno = 0;
 	}
 	return retorno;
@@ -576,7 +594,7 @@ void pub_cargaAutomatica(Publicacion *list)
     list[4].id = pub_nuevoId();
     strncpy(list[4].textoAviso,"Aviso 4",AVISO_LEN);
 	list[4].rubro = 2;
-	list[4].estado = 1;
+	list[4].estado = 0;
 	list[4].idCliente = 4;
     list[4].isEmpty = 0;
 

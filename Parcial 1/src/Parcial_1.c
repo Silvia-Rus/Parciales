@@ -32,8 +32,8 @@ int main(void)
 	if(!cli_initList(clienteList, LEN_CLI)&&
 		!pub_initList(publicacionList, LEN_PUB ))
 	{
-		//cli_cargaAutomatica(clienteList);
-		//pub_cargaAutomatica(publicacionList);
+		cli_cargaAutomatica(clienteList);
+		pub_cargaAutomatica(publicacionList);
 		do{
 			if(!utn_getNumeroInt(&respuesta,
 								"\n\nMENÚ PRINCIPAL:\n"
@@ -167,38 +167,56 @@ int main(void)
 											"1-Cliente con más publicaciones.\n"
 											"2-Cantidad de avisos pausados.\n"
 											"3-Rubro con más avisos.\n"
-											"4-Para salir.\n",
+											"4-Cliente con más avisos activos.\n"
+											"5-Cliente con más avisos pausados.\n"
+											"6-Para salir.\n",
 											"\n\nERROR.\n\n\n",
 											1,
-											4,
+											6,
 											INTENTOS))
 						{
 							switch(respuestaInformes)
 							{
-							case 1:
+							case 1://cliente con más avisos
 							{
-								if(inf_clienteConMasAvisos(clienteList, LEN_CLI, publicacionList, LEN_PUB))
+								if(inf_clienteConMasAvisos(clienteList, LEN_CLI, publicacionList, LEN_PUB,1))
 								{
 									printf("\nVolviendo al menú principal...");
 								}
 							}
 								break;
 
-							case 2:
+							case 2://cantidad de avisos pausados
 								if(inf_printTotalPausadas(publicacionList, LEN_PUB))
 								{
 									printf("\nVolviendo al menú principal...");
 								}
 								break;
-							case 3:
+							case 3://rubro con más avisos
 								if(inf_rubroConMasAvisos(publicacionList, LEN_PUB))
 								{
 									printf("\nVolviendo al menú principal...");
 								}
 								break;
+							case 4://cliente con más avisos activos
+							{
+								if(inf_clienteConMasAvisos(clienteList, LEN_CLI, publicacionList, LEN_PUB,2))
+								{
+									printf("\nVolviendo al menú principal...");
+								}
+							}
+								break;
+							case 5://cliente con más avisos pausados
+							{
+								if(inf_clienteConMasAvisos(clienteList, LEN_CLI, publicacionList, LEN_PUB,3))
+								{
+									printf("\nVolviendo al menú principal...");
+								}
+							}
+								break;
 							}
 						}
-					}while(respuestaInformes!=4);
+					}while(respuestaInformes!=6);
 				}
 			}
 			else
