@@ -202,6 +202,8 @@ int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *p
 			clienteLen>0 &&
 			publicacionList!=NULL &&
 			publicacionLen>0 &&
+			tipoInforme>0 &&
+			tipoInforme<4 &&
 			cli_isEmpty(clienteList, clienteLen)==0)
 	{
 		for(int i=0;i<clienteLen;i++)
