@@ -8,14 +8,15 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
 
-
+#define LEN_CUIT 14
+#define LEN_NOMBRE 100
 
 struct
 {
 	int id;
-	char nombre[51];
-	char apellido[51];
-	char cuit [14];
+	char nombre[LEN_NOMBRE];
+	char apellido[LEN_NOMBRE];
+	char cuit [LEN_CUIT];
 	int isEmpty;
 }typedef Cliente;
 

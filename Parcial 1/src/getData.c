@@ -14,7 +14,6 @@
 #include "informes.h"
 #include "getData.h"
 
-#define ARRAY_SIZE 4096
 
 static int myGets(char* cadena, int len);
 static int esNumericaInt(char* cadena, int len);

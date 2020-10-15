@@ -14,9 +14,7 @@
 #include "informes.h"
 #include "getData.h"
 
-#define LEN_NOMBRE 30
-#define LEN_STRUCT 1000
-#define LEN_CLIENTE 100
+
 #define INTENTOS 3
 
 static int pub_nuevoId(void);
@@ -265,17 +263,26 @@ int pub_altaRegistro(Publicacion *list,int len, Cliente *clienteList, int client
 
 	if(list!=NULL && len>0 && clienteList!=NULL && clienteLen>0)
 	{
+		//int cli_isEmpty(Cliente *list, int len)
+		if(cli_isEmpty(clienteList, clienteLen)==1)
+		{
+			printf("\nNo hay clientes grabados en la base de datos."
+					"\nGrabe uno para hacer una publicación.");
+		}
+		else
+		{
 		do
 		{
 			if(!utn_getNumeroInt(&idCliente,
-									"\nIngrese el ID de un cliente para publicar un aviso o pulse 0 para ir al menú principal:",
+									"\nIngrese el ID de un cliente para hacer una publicacion. "
+									"\nPulse 0 para ir al menú principal:",
 									"\nError. Ingrese un número entero o pulse 0 para salir.",
 									0,
 									INT_MAX,
 									INTENTOS) &&
 				(cli_findById(clienteList, clienteLen, idCliente)>-1))
 			{
-				if(!pub_indiceVacio(list, LEN_STRUCT,&i) &&
+				if(!pub_indiceVacio(list, len,&i) &&
 					i >= 0  && list[i].isEmpty==1 &&
 					!utn_getNumeroInt(&buffer.rubro,
 										"\nRubro:"
@@ -310,6 +317,7 @@ int pub_altaRegistro(Publicacion *list,int len, Cliente *clienteList, int client
 				}
 			}
 		}while(idCliente!=0);
+		}
 	}
 	return retorno;
 }
@@ -339,21 +347,22 @@ int pub_pausarActivarPublicacion(Publicacion *list, int len, Cliente *listClient
 								0,
 								INT_MAX,
 								INTENTOS) &&
-			pub_findById(list,LEN_STRUCT, idPublicacion)>-1)
+			pub_findById(list,len, idPublicacion)>-1)
 
 		 {
 			if(idPublicacion!=0)
 			{
-			 indexPublicacion=pub_findById(list,LEN_STRUCT, idPublicacion);
+			 indexPublicacion=pub_findById(list,len, idPublicacion);
+			 //FUE LEN_STRUCT
 				estadoPublicacion=list[indexPublicacion].estado;
 
 				do
 				{
 					if(estadoPublicacion == pausa &&
 						!inf_printClientebyIdPublicacion(list,
-														LEN_STRUCT,
+														len,
 														listCliente,
-														LEN_CLIENTE,
+														lenCliente,
 														idPublicacion) &&
 						((pausa==1 &&
 						!utn_getNumeroInt(&confirmacion, //la pregunta de confirmación
@@ -372,7 +381,7 @@ int pub_pausarActivarPublicacion(Publicacion *list, int len, Cliente *listClient
 									1,
 									INTENTOS))) &&
 						confirmacion==1 &&
-						!pausarActivar(list, LEN_STRUCT, idPublicacion, pausa))
+						!pausarActivar(list, len, idPublicacion, pausa))
 					{
 
 							retorno=0;
@@ -436,7 +445,7 @@ int pub_bajaByIdCliente(Publicacion *list, int len, int idCliente)
 				if(list[i].idCliente==idCliente)
 				{
 					idABuscar= list[i].id;
-					indiceAModificar=pub_findById(list, LEN_STRUCT, idABuscar);
+					indiceAModificar=pub_findById(list, len, idABuscar);
 					if(indiceAModificar!=-1)
 					{
 						list[indiceAModificar].isEmpty=1;
@@ -449,7 +458,7 @@ int pub_bajaByIdCliente(Publicacion *list, int len, int idCliente)
 				}
 			}
 			}while(retorno==-1);
-	}else{printf("Error.\n");}
+	}else{printf("Cliente sin publicaciones asociadas.\n");}
 	return retorno;
 }
 /*
@@ -534,31 +543,51 @@ int pub_totalPausadas(Publicacion * listPublicacion, int lenPublicacion, int *pT
  * \param puntero a la lista de publicaciones
  * \return los datos cargados.
  */
-
-/*void pub_cargaAutomatica(Publicacion *list)
+void pub_cargaAutomatica(Publicacion *list)
 {
-	    list[0].id = (pub_nuevoId);
-	    list[0].rubro = 1;
-strncpy(list[0].textoAviso,"PUBLICACION",LEN_NOMBRE);
-		list[0].estado = 1;
-	    list[0].isEmpty = 0;
-	    list[0].idCliente = 1;
+	list[0].id = pub_nuevoId();
+	strncpy(list[0].textoAviso,"Aviso 0",AVISO_LEN);
+	list[0].rubro = 1;
+	list[0].estado = 1;
+	list[0].idCliente = 1;
+	list[0].isEmpty = 0;
 
-	    list[1].id = (pub_nuevoId);
-	    list[1].rubro = 1;
-strncpy(list[1].textoAviso,"PUBLICACION2",LEN_NOMBRE);
-		list[1].estado = 1;
-	    list[1].isEmpty = 0;
-	    list[1].idCliente = 1;
+	list[1].id = pub_nuevoId();
+	strncpy(list[1].textoAviso,"Aviso 1",AVISO_LEN);
+	list[1].rubro = 1;
+	list[1].estado = 1;
+	list[1].idCliente = 2;
+	list[1].isEmpty = 0;
 
-	    list[2].id = (pub_nuevoId);
-	    list[2].rubro = 1;
-strncpy(list[2].textoAviso,"PUBLICACION3",LEN_NOMBRE);
-		list[2].estado = 1;
-	    list[2].isEmpty = 1;
-	    list[2].idCliente = 2;
+	list[2].id = pub_nuevoId();
+	strncpy(list[2].textoAviso,"Aviso 2",AVISO_LEN);
+	list[2].rubro = 2;
+	list[2].estado = 1;
+	list[2].idCliente = 3;
+	list[2].isEmpty = 0;
+
+	list[3].id = pub_nuevoId();
+	strncpy(list[3].textoAviso,"Aviso 3",AVISO_LEN);
+	list[3].rubro = 2;
+	list[3].estado = 1;
+	list[3].idCliente = 4;
+	list[3].isEmpty = 0;
+
+    list[4].id = pub_nuevoId();
+    strncpy(list[4].textoAviso,"Aviso 4",AVISO_LEN);
+	list[4].rubro = 2;
+	list[4].estado = 1;
+	list[4].idCliente = 4;
+    list[4].isEmpty = 0;
+
+    list[5].id = pub_nuevoId();
+    strncpy(list[5].textoAviso,"Aviso 5",AVISO_LEN);
+	list[5].rubro = 2;
+	list[5].estado = 1;
+	list[5].idCliente = 6;
+    list[5].isEmpty = 0;
+
 }
-*/
 
 
 

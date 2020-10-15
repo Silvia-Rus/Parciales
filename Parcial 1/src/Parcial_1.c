@@ -16,7 +16,6 @@
 
 #define LEN_CLI 100
 #define LEN_PUB 1000
-#define INTENTOS 3
 #define CUIT_SIZE 14
 
 int main(void)
@@ -58,7 +57,7 @@ int main(void)
 					case 1://ALTA CLIENTES
 						if(cli_altaRegistro(clienteList, LEN_CLI))
 						{
-							printf("Error en la carga.");
+							printf("\nIntentos agotados.");
 						}
 						break;
 					case 2://MODIFICACIÓN CLIENTES
@@ -68,50 +67,74 @@ int main(void)
 						}
 						break;
 					case 3://DAR DE BAJA UN CLIENTE
-						if(!utn_getNumeroInt(&idBajaCliente,
-											"\nIngrese el ID del cliente que desee dar de baja. ",
-											"\nError. El ID debe ser númerico.: ",
-											0,
-											INT_MAX,
-											INTENTOS) &&
-								//hacerlo by index
-							cli_findById(clienteList, LEN_CLI, idBajaCliente)>-1 &&
-							!inf_printPublicacionbyIdCliente(publicacionList,
-															LEN_PUB,
-															clienteList,
-															LEN_CLI,
-															idBajaCliente) &&
-							!utn_getNumeroInt(&confirmacion, //la pregunta de confirmación
-												"\n¿Está seguro de que desea dar de baja al cliente y todas sus publicaciones?\n"
-												"Pulse 0 para salir. Pulse 1 para confirmar.\n",
-												"\nERROR. Pulse 0 para salir. Pulse 1 para confirmar. : ",
-												0,
-												1,
-												INTENTOS))
+
+						if(cli_isEmpty(clienteList, LEN_CLI)==1)
 						{
-							if(confirmacion==1)
+							printf("No hay ningún cliente en la base de datos");
+						}
+						else
+						{
+							if(!utn_getNumeroInt(&idBajaCliente,
+												"\nIngrese el ID del cliente que desee dar de baja. ",
+												"\nError. El ID debe ser númerico.: ",
+												0,
+												INT_MAX,
+												INTENTOS) &&
+								cli_findById(clienteList, LEN_CLI, idBajaCliente)>-1 &&
+								!inf_printPublicacionbyIdCliente(publicacionList,
+																LEN_PUB,
+																clienteList,
+																LEN_CLI,
+																idBajaCliente) &&
+								!utn_getNumeroInt(&confirmacion, //la pregunta de confirmación
+													"\n¿Está seguro de que desea dar de baja al cliente y todas sus publicaciones?\n"
+													"Pulse 0 para salir. Pulse 1 para confirmar.\n",
+													"\nERROR. Pulse 0 para salir. Pulse 1 para confirmar. : ",
+													0,
+													1,
+													INTENTOS))
 							{
-								if(!cli_bajaById(clienteList, LEN_CLI, idBajaCliente) &&
-									!pub_bajaByIdCliente(publicacionList,LEN_PUB, idBajaCliente))
+								if(confirmacion==1)
 								{
-									printf("Volviendo al menú principal...");
+									if(!pub_bajaByIdCliente(publicacionList,LEN_PUB, idBajaCliente) ||
+									!cli_bajaById(clienteList, LEN_CLI, idBajaCliente))
+
+									{
+										printf("Volviendo al menú principal...");
+									}
+								}
+								else
+								{
+									printf("NO se ha hecho ninguna modificación.");
+								}
+
+							}else
+							{
+
+								if(cli_findById(clienteList, LEN_CLI, idBajaCliente)<-1)
+								{
+									printf("No existe ningún cliente con ese ID en la base de datos.");
+								}
+								else
+								{
+									if(inf_printPublicacionbyIdCliente(publicacionList,
+																			LEN_PUB,
+																			clienteList,
+																			LEN_CLI,
+																			idBajaCliente))
+									{
+										printf("Sin avisos para imprimir.");
+
+									}
 								}
 
 							}
-							else
-							{
-								printf("NO se ha hecho ninguna modificación.");
-							}
-
-						}else
-						{
-							printf("No existe ningún cliente con ese ID en la base de datos.");
 						}
 						break;
 					case 4://DAR DE ALTA UN AVISO
-						if(pub_altaRegistro(publicacionList, LEN_PUB, clienteList, LEN_CLI))
+						if(!pub_altaRegistro(publicacionList, LEN_PUB, clienteList, LEN_CLI))
 						{
-							printf("No se cargó ningún aviso.\n\n");
+							printf("Volviendo al menú principal...\n\n");
 						}
 						break;
 					case 5://PAUSAR UNA PUBLICACIÓN
@@ -167,7 +190,6 @@ int main(void)
 									printf("\nVolviendo al menú principal...");
 								}
 								break;
-
 							case 3:
 								if(inf_rubroConMasAvisos(publicacionList, LEN_PUB))
 								{
@@ -176,7 +198,7 @@ int main(void)
 								break;
 							}
 						}
-						}while(respuestaInformes!=4);
+					}while(respuestaInformes!=4);
 				}
 			}
 			else

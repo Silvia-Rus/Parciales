@@ -13,10 +13,6 @@
 #include "publicacion.h"
 #include "informes.h"
 #include "getData.h"
-#define LEN_CLIENTE 10
-#define LEN_PUBLICACION 10
-#define LEN_PUB 10
-#define CUIT_SIZE 14
 
 /* brief imprime el cliente asociado a una publicación cuyo Id entra por parámetro.
  * param array de publicaciones.
@@ -42,7 +38,7 @@ int inf_printClientebyIdPublicacion(Publicacion *list, int len, Cliente *listCli
 				if(idPub==list[i].id)
 				{
 					idCliente=list[i].idCliente;
-					indexCliente= cli_findById(listCliente,LEN_CLIENTE, idCliente);
+					indexCliente= cli_findById(listCliente, lenCliente, idCliente);
 					if(list[i].isEmpty == 0)
 					{
 						printf ("CLIENTE QUE CONTRATÓ EL AVISO:\n\n");
@@ -99,6 +95,10 @@ int inf_printPublicacionbyIdCliente(Publicacion *list, int len ,Cliente *listCli
 				}
 			}
 	    }
+		else
+		{
+			retorno=0;
+		}
 	return retorno;
 }
 /* brief imprime los datos de todos los clientes junto con el total de publicaciones activas que tiene cada uno de ellos..
@@ -159,14 +159,20 @@ int inf_printTotalPausadas(Publicacion * listPublicacion, int lenPublicacion)
 	int totalPausadas;
 		if(listPublicacion != NULL && lenPublicacion)
 		{
-			if(!pub_totalPausadas(listPublicacion, LEN_PUBLICACION, &totalPausadas))
+			if(pub_isEmpty(listPublicacion, lenPublicacion)==1)
 			{
-				printf("El total de publicaciones pausadas es: %d.", totalPausadas);
+				printf("\nNo hay ninguna publicación en el sistema.");
+			}
+			else
+			{
+				if(!pub_totalPausadas(listPublicacion, lenPublicacion, &totalPausadas))
+				{
+
+				printf("\nEl total de publicaciones pausadas es: %d.", totalPausadas);
+				}
 			}
 		retorno = 0;
 		}
-
-
 		return retorno;
 }
 /* brief imprime el cliente con más publicaciones.
@@ -179,22 +185,26 @@ int inf_printTotalPausadas(Publicacion * listPublicacion, int lenPublicacion)
 int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *publicacionList, int publicacionLen)
 {
 	int retornar=-1;
-	int currentCounter;
-	int maxCounter;
+	int contador;
+	int maximo;
 	int index;
-	Cliente bufferMax;
-	if(clienteList!=NULL && clienteLen>0 && publicacionList!=NULL && publicacionLen>0 && cli_isEmpty(clienteList, clienteLen)==0)
+	Cliente buffer;
+	if(clienteList!=NULL &&
+			clienteLen>0 &&
+			publicacionList!=NULL &&
+			publicacionLen>0 &&
+			cli_isEmpty(clienteList, clienteLen)==0)
 	{
 		for(int i=0;i<clienteLen;i++)
 		{
-			pub_totalPubByIdCliente(publicacionList, publicacionLen, clienteList[i].id, &currentCounter);
-			if(i==0 || currentCounter>maxCounter)
+			pub_totalPubByIdCliente(publicacionList, publicacionLen, clienteList[i].id, &contador);
+			if(i==0 || contador>maximo)
 			{
-				maxCounter = currentCounter;
-				bufferMax = clienteList[i];
+				maximo = contador;
+				buffer = clienteList[i];
 			}
 		}
-		index=cli_findById(clienteList, clienteLen, bufferMax.id);
+		index=cli_findById(clienteList, clienteLen, buffer.id);
 		printf("\nEl cliente con mas avisos es: %s %s, CUIT: %s", clienteList[index].nombre, clienteList[index].apellido, clienteList[index].cuit);
 		retornar = 0;
 	}
@@ -222,7 +232,7 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 
 	if(pub_isEmpty(publicacionList, publicacionLen)==1)
 	{
-		printf("\nNO HAY PUBLICIDADES CARGADAS.\n");
+		printf("\nNo hay publicaciones cargadas.\n");
 	}
 	else
 	{
@@ -231,18 +241,18 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 
 			if(publicacionList[i].isEmpty == 0)
 			{
-			switch(publicacionList[i].rubro)
-			{
-				case 1:
-					contadorFunebres++;
-					break;
-				case 2:
-					contadorInmuebles++;
-					break;
-				case 3:
-					contadorSociales++;
-					break;
-			}
+				switch(publicacionList[i].rubro)
+				{
+					case 1:
+						contadorFunebres++;
+						break;
+					case 2:
+						contadorInmuebles++;
+						break;
+					case 3:
+						contadorSociales++;
+						break;
+				}
 			}
 		}
 	}
@@ -262,26 +272,26 @@ int inf_rubroConMasAvisos(Publicacion *publicacionList, int publicacionLen)
 		retorno = 0;
 	}
 
-		else if((contadorFunebres==contadorInmuebles) && contadorFunebres >contadorSociales)
-		{
-			printf("\nLos rubros con más avisos son 'Funebres' e 'Inmuebles' (total %d).", contadorFunebres);
-			retorno = 0;
-		}
-		else if((contadorFunebres==contadorSociales) && contadorFunebres >contadorInmuebles)
-		{
-			printf("\nLos rubros con más avisos son 'Funebres' y 'Sociales' (total %d).", contadorFunebres);
-			retorno = 0;
-		}
-		else if((contadorInmuebles==contadorSociales) && contadorInmuebles >contadorFunebres)
-		{
-			printf("\nLos rubros con más avisos son 'Inmuebles' y 'Sociales' (total %d).", contadorFunebres);
-			retorno = 0;
-		}
-		else if((contadorInmuebles==contadorSociales) && (contadorSociales==contadorFunebres))
-		{
-			printf("\nLos tres rubros tienen el mismo número de avisos (total %d).", contadorInmuebles);
-			retorno = 0;
-		}
+	else if((contadorFunebres==contadorInmuebles) && contadorFunebres >contadorSociales)
+	{
+		printf("\nLos rubros con más avisos son 'Funebres' e 'Inmuebles' (total %d).", contadorFunebres);
+		retorno = 0;
+	}
+	else if((contadorFunebres==contadorSociales) && contadorFunebres >contadorInmuebles)
+	{
+		printf("\nLos rubros con más avisos son 'Funebres' y 'Sociales' (total %d).", contadorFunebres);
+		retorno = 0;
+	}
+	else if((contadorInmuebles==contadorSociales) && contadorInmuebles >contadorFunebres)
+	{
+		printf("\nLos rubros con más avisos son 'Inmuebles' y 'Sociales' (total %d).", contadorFunebres);
+		retorno = 0;
+	}
+	else if((contadorInmuebles==contadorSociales) && (contadorSociales==contadorFunebres))
+	{
+		printf("\nLos tres rubros tienen el mismo número de avisos (total %d).", contadorInmuebles);
+		retorno = 0;
+	}
 	return retorno;
 }
 

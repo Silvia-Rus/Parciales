@@ -14,11 +14,6 @@
 #include "informes.h"
 #include "getData.h"
 
-#define LEN_NOMBRE 30
-#define INTENTOS 3
-#define LEN_CLIENTE 100
-#define LEN_CUIT 14
-
 static int cli_nuevoId(void);
 
 /*
@@ -80,7 +75,7 @@ int cli_indiceVacio(Cliente *list, int len, int *pIndiceLibre)
 * \brief comprueba que hay por lo menos un elemento cargado en el array.
 * \param puntero al array que comprueba.
 * \param longitud del array que comprueba.
-* \return 1 si el array está vacío (todos sus elementos tienen iseEmpty en FALSE) y 0 si no lo está.
+* \return 1 si el array está vacío (todos sus elementos tienen iseEmpty en 0) y 0 si no lo está.
  */
 int cli_isEmpty(Cliente *list, int len)
 {
@@ -221,7 +216,7 @@ int cli_altaRegistro(Cliente *list,int len)
 	int i;
 	if(list!=NULL &&
 			len>0 &&
-			!cli_indiceVacio(list, LEN_NOMBRE,&i) &&
+			!cli_indiceVacio(list, len,&i) &&
 			i >= 0  &&
 			list[i].isEmpty==1 &&
 			!utn_getLetrasYEspacios(buffer.nombre,
@@ -355,7 +350,7 @@ int cli_bajaById(Cliente *list, int len, int idCliente)
 			len > 0 &&
 			!cli_isEmpty(list, len))
 	{
-			indiceAModificar=cli_findById(list, LEN_CLIENTE, idCliente);
+			indiceAModificar=cli_findById(list, len, idCliente);
 			if(indiceAModificar!=-1)
 			{
 				list[indiceAModificar].isEmpty=1;
@@ -365,8 +360,9 @@ int cli_bajaById(Cliente *list, int len, int idCliente)
 			else
 			{
 				printf("ID inválido");
+				retorno=0;
 			}
-	}else{printf("Error.\n");}
+	}else{printf("Error en la baja del cliente.\n");}
 	return retorno;
 }
 /*
@@ -374,22 +370,69 @@ int cli_bajaById(Cliente *list, int len, int idCliente)
  * \param puntero a la lista de publicaciones
  * \return los datos cargados.
  */
-/*void cli_cargaAutomatica(Cliente *list)
+void cli_cargaAutomatica(Cliente *list)
 {
-	    list[0].id =99;
-strncpy(list[0].nombre,"Silvia",LEN_NOMBRE);
-strncpy(list[0].apellido,"Rus Mata",LEN_NOMBRE);
-strncpy(list[0].cuit,"1234",11);
-	    list[0].isEmpty = 0;
 
-	    list[1].id = 999;
-strncpy(list[1].nombre,"Sara",LEN_NOMBRE);
-strncpy(list[1].apellido,"Rus",LEN_NOMBRE);
-strncpy(list[1].cuit,"5555",11);
-	    list[1].isEmpty = 0;
+	list[0].id = cli_nuevoId();
+	strncpy(list[0].nombre,"Silvia",LEN_NOMBRE);
+	strncpy(list[0].apellido,"Rus Mata",LEN_NOMBRE);
+	strncpy(list[0].cuit,"27-95418871-5",LEN_NOMBRE);
+	list[0].isEmpty = 0;
+
+	list[1].id = cli_nuevoId();
+	strncpy(list[1].nombre,"Sara",LEN_NOMBRE);
+	strncpy(list[1].apellido,"Rus Mata",LEN_NOMBRE);
+	strncpy(list[1].cuit,"27-95418871-5",LEN_NOMBRE);
+	list[1].isEmpty = 0;
+
+	list[2].id = cli_nuevoId();
+	strncpy(list[2].nombre,"Marcelo",LEN_NOMBRE);
+	strncpy(list[2].apellido,"Zumbo",LEN_NOMBRE);
+	strncpy(list[2].cuit,"27-95418871-5",LEN_NOMBRE);
+	list[2].isEmpty = 0;
+
+	list[3].id = cli_nuevoId();
+	strncpy(list[3].nombre,"Evelyn",LEN_NOMBRE);
+	strncpy(list[3].apellido,"Lugo",LEN_NOMBRE);
+	strncpy(list[3].cuit,"27-95418871-5",LEN_NOMBRE);
+	list[3].isEmpty = 0;
+
+    list[4].id = cli_nuevoId();
+    strncpy(list[4].nombre,"María",LEN_NOMBRE);
+	strncpy(list[4].apellido,"García",LEN_NOMBRE);
+	strncpy(list[4].cuit,"27-95418871-5",LEN_NOMBRE);
+    list[4].isEmpty = 0;
+
+    list[5].id = cli_nuevoId();
+    strncpy(list[5].nombre,"Claudia",LEN_NOMBRE);
+	strncpy(list[5].apellido,"Pérez",LEN_NOMBRE);
+	strncpy(list[5].cuit,"27-95418871-5",LEN_NOMBRE);
+    list[5].isEmpty = 0;
+
+    list[6].id = cli_nuevoId();
+	strncpy(list[6].nombre,"Roberto",LEN_NOMBRE);
+	strncpy(list[6].apellido,"Martínez",LEN_NOMBRE);
+	strncpy(list[6].cuit,"27-95418871-5",LEN_NOMBRE);
+    list[6].isEmpty = 0;
+
+    list[7].id = cli_nuevoId();
+    strncpy(list[7].nombre,"Manuel",LEN_NOMBRE);
+	strncpy(list[7].apellido,"Torres",LEN_NOMBRE);
+	strncpy(list[7].cuit,"27-95418871-5",LEN_NOMBRE);
+    list[7].isEmpty = 0;
+
+    list[8].id = cli_nuevoId();
+    strncpy(list[8].nombre,"José",LEN_NOMBRE);
+	strncpy(list[8].apellido,"Hh",LEN_NOMBRE);
+	strncpy(list[8].cuit,"27-95418871-5",LEN_NOMBRE);
+    list[8].isEmpty = 0;
+
+    list[9].id = cli_nuevoId();
+	strncpy(list[9].nombre,"Lorem",LEN_NOMBRE);
+	strncpy(list[9].apellido,"Ipsum",LEN_NOMBRE);
+	strncpy(list[9].cuit,"27-95418871-5",LEN_NOMBRE);
+    list[9].isEmpty = 0;
 }
- */
-
 
 
 
