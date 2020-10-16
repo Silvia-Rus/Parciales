@@ -519,9 +519,7 @@ int pub_totalPubByIdCliente(Publicacion * listPublicacion, int lenPublicacion, i
 					{
 						contadorPubActivas++;
 					}
-
 				}
-
 			}
 		}
 		*pTotalPublicaciones = contadorPublicaciones;
@@ -587,7 +585,7 @@ void pub_cargaAutomatica(Publicacion *list)
 	list[3].id = pub_nuevoId();
 	strncpy(list[3].textoAviso,"Aviso 3",AVISO_LEN);
 	list[3].rubro = 2;
-	list[3].estado = 1;
+	list[3].estado = 0;
 	list[3].idCliente = 4;
 	list[3].isEmpty = 0;
 
@@ -595,7 +593,7 @@ void pub_cargaAutomatica(Publicacion *list)
     strncpy(list[4].textoAviso,"Aviso 4",AVISO_LEN);
 	list[4].rubro = 2;
 	list[4].estado = 0;
-	list[4].idCliente = 4;
+	list[4].idCliente = 5;
     list[4].isEmpty = 0;
 
     list[5].id = pub_nuevoId();

@@ -192,12 +192,7 @@ int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *p
 	int maximo;
 	int maximoActivas;
 	int maximoPausadas;
-	int index;
-	int indexPausadas;
-	int indexActivas;
-	Cliente buffer;
-	//Cliente bufferPausadas;
-	//Cliente bufferActivas;
+
 	if(clienteList!=NULL &&
 			clienteLen>0 &&
 			publicacionList!=NULL &&
@@ -212,46 +207,41 @@ int inf_clienteConMasAvisos(Cliente *clienteList, int clienteLen, Publicacion *p
 			if(i==0 || contador>maximo)
 			{
 				maximo = contador;
-				buffer = clienteList[i];
 			}
 			if(i==0 || contadorPausadas>maximoPausadas)
 			{
 				maximoPausadas = contadorPausadas;
-				indexPausadas = i;
-				//bufferPausadas = clienteList[indexPausadas];
 			}
 			if(i==0 || contadorActivas>maximoActivas)
 			{
 				maximoActivas = contadorActivas;
-				indexActivas = i;
-				//bufferActivas = clienteList[indexActivas];
 			}
 		}
-		index=cli_findById(clienteList, clienteLen, buffer.id);
-		if(tipoInforme==1)
+		for(int index=0;index<clienteLen;index++)
 		{
-			printf("\nEl cliente con mas avisos es: %s %s, CUIT: %s", clienteList[index].nombre, clienteList[index].apellido, clienteList[index].cuit);
-			retornar = 0;
-		}
-		else
-		{
-			if(tipoInforme==2)
+			pub_totalPubByIdCliente(publicacionList, publicacionLen, clienteList[index].id, &contador, &contadorPausadas, &contadorActivas);
+			if(tipoInforme==1 && contador==maximo)
 			{
-				printf("\nEl cliente con mas avisos activos es: %s %s, CUIT: %s", clienteList[indexActivas].nombre, clienteList[indexActivas].apellido, clienteList[indexActivas].cuit);
-				retornar = 0;
+				printf("\n%s %s, CUIT: %s", clienteList[index].nombre, clienteList[index].apellido, clienteList[index].cuit);
+				retornar=0;
 			}
 			else
 			{
-				if(tipoInforme==3)
+				if(tipoInforme==2 && contadorActivas==maximoActivas)
 				{
-					printf("\nEl cliente con mas avisos pausados es: %s %s, CUIT: %s", clienteList[indexPausadas].nombre, clienteList[indexPausadas].apellido, clienteList[indexPausadas].cuit);
-					retornar = 0;
+					printf("\n%s %s, CUIT: %s", clienteList[index].nombre, clienteList[index].apellido, clienteList[index].cuit);
+					retornar=0;
 				}
-
+				else
+				{
+					if(tipoInforme==3 && contadorPausadas==maximoPausadas)
+					{
+						printf("\n%s %s, CUIT: %s", clienteList[index].nombre, clienteList[index].apellido, clienteList[index].cuit);
+						retornar=0;
+					}
+				}
 			}
-
 		}
-
 	}
 	else
 	{
