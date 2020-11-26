@@ -9,19 +9,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#include "cliente.h"
-#include "publicacion.h"
-#include "informes.h"
 #include "getData.h"
 
 
 static int myGets(char* cadena, int len);
-static int esNumericaInt(char* cadena, int len);
 static int esNumericaFloat(char* cadena, int len);
 static int getInt(int *pResultado);
 static int getFloat(float *pResultado);
 static int getLetrasYEspacios(char *pResultado, int len);
-static int esCuit(char cadena[]);
 /*
  * \brief valida que la cadena recibida no excede la memoria del array y hace obligatoria la entrada de datos.
  * \param puntero con el string validado.
@@ -60,7 +55,7 @@ static int myGets(char* cadena, int len)
  * \param longitud del string.
  * \return 1 (verdadero) si es un número entero. 0 (falso) si no lo es.
  */
-static int esNumericaInt(char* cadena, int len)
+int esNumericaInt(char* cadena, int len)
 {
 	int retorno=1;
 	int i;
@@ -137,7 +132,7 @@ int esLetrasYEspacios(char* cadena, int len)
  * \param puntero con el string validado.
  * \return 1 (verdadero) si es un número entero. 0 (falso) si no lo es.
  */
-static int esCuit(char *cadena)
+int esCuit(char *cadena)
 {
 	int retorno;
 	int contadorLugares=0;
@@ -151,6 +146,31 @@ static int esCuit(char *cadena)
 				contadorLugares++;
 			}
 			if(contadorLugares>2 || ((cadena[i] < '0' || cadena[i] > '9') && cadena[i] != '-'))
+			{
+				retorno = 0;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
+/*
+ * \brief Valida que la cadena recibida está compuesta únicamente por letras, espacios y guiones
+ * \param puntero con el string validado.
+ * \param longitud del string.
+ * \return 1 (verdadero) si solo tiene letras y espacios. 0 (falso) si no.
+ */
+int esNombreValido(char* cadena, int len)
+{
+	int retorno = 1;
+
+	if( cadena!= NULL && len > 0)
+	{
+		for(int i=0; i<=len && cadena[i] != '\0';i++)
+		{
+			if(	(cadena[i] < 'A' || cadena[i] > 'Z') &&
+				(cadena[i] < 'a' || cadena[i] > 'z') &&
+				cadena[i] != ' ' && cadena[i] != '-')
 			{
 				retorno = 0;
 				break;

@@ -1,0 +1,12 @@
+id,idCliente,Cantidad, Nombre, Zona, Cobrado
+1,10,3,cursoPYTHON,1,1
+2,10,4,cursoJS,1,1
+3,12,4,cursoPASTELERIA,2,0
+4,13,5,cursoJAVA,1,0
+5,14,5,cursoGO,2,0
+6,15,8,cursoKOTLIN,1,1
+7,16,9,cursoSQL,2,0
+8,17,1,cursoCOBOL,1,0
+9,18,12,cursoPASCAL,1,1
+10,19,13,cursoRUBY,1,0
+11,20,33,cursoCSHARP,1,0

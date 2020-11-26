@@ -2,13 +2,13 @@
  * getData.h
  *
  *  Created on: 10 oct. 2020
- *      Author: usuario
+ *      Author: Silvia Rus Mata
  */
 
 #ifndef GETDATA_H_
 #define GETDATA_H_
 
-#define LEN_NOMBRE 100
+#define LEN_NOMBRE 4096
 #define ARRAY_SIZE 4096
 #define INTENTOS 3
 
@@ -18,4 +18,7 @@ int utn_getCadena(char* pResultado, int len, char* mensaje, char* mensajeError, 
 int utn_getLetrasYEspacios(char* pResultado, int len, char* mensaje, char* mensajeError, int reintentos);
 int utn_getCuit(char* pResultado, char* mensaje, char* mensajeError, int reintentos, int len);
 int esLetrasYEspacios(char* cadena, int len);
+int esNumericaInt(char* cadena, int len);
+int esNombreValido(char* cadena, int len);
+int esCuit(char *cadena);
 #endif /* GETDATA_H_ */
